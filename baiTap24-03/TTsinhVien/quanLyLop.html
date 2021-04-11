@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý danh sách học sinh</title>
+
+</head>
+<style>
+    td{
+        font-size: 25px;
+        text-align: center;
+    }
+    table{
+        width: 80%;
+        float: left;
+    }
+
+</style>
+<body>
+<h1 style="color: blue">Danh sách học sinh</h1><br/>
+<button onclick="addStudent()" style="background-color: greenyellow; font-size: 20px">Thêm học sinh</button></br>
+<table border="1px" id="menu"></table>
+
+<script>
+    let students = ['Họ tên', "Date of Birth", 'Điểm toán', 'Điểm lý', 'Điểm hoá','GPA'];
+    let menu = [students];
+
+    //tạo khung danh sách.
+
+    function showMenu() {
+       let str = '';
+        for (let i = 0; i < menu.length; i++) {
+
+            str += '<tr style="color: darkblue; background-color: coral">';
+            str += '<td style="color: blue; background-color: lime" >' + menu[i][0] + '</td>';
+            str += '<td>' + menu[i][1] + '</td>';
+            str += '<td>' + menu[i][2] + '</td>';
+            str += '<td>' + menu[i][3] + '</td>';
+            str += '<td>' + menu[i][4] + '</td>';
+            str += '<td style="color: red; background-color: wheat">' + menu[i][5] + '</td>';
+            str += '<td style="background-color: darkgray"><button onclick="updateStudent('+i+')">Edit</button> </td>';
+            str += '<td style="background-color: darkgrey"><button onclick="deleteStudent('+i+')">Delete</button> </td>';
+            str += '</tr>'
+
+        }
+
+        document.getElementById('menu').innerHTML = str;
+    }
+    showMenu();
+
+    //hàm thêm hoc sinh vao menu.
+    function addStudent() {
+        let name = prompt('Tên học sinh');
+        let date= prompt('Ngày sinh');
+        let math = +prompt('Điểm toán');
+        let phy = +prompt('Điểm lý');
+        let chem = +prompt('Điểm hoá');
+        let gpa = ((math + phy + chem)/3).toFixed(2);
+        let student = [name, date, math, phy, chem, gpa];
+        menu.push(student);
+        console.log(menu);
+        showMenu();
+    }
+    //xoá học sinh khoi menu.
+    function deleteStudent(index) {
+        menu.splice(index,1);
+        showMenu();
+    }
+    //cập nhật học sinh moi vào menu.
+    function updateStudent(index) {
+        menu[index][0] = prompt("Nhập tên mới", menu[index][0])
+        menu[index][1] = prompt("Nhập ngày sinh mới", menu[index][1])
+        menu[index][2] = +prompt("Nhập điểm toán", menu[index][2])
+        menu[index][3] = +prompt("Nhập điểm lý", menu[index][3])
+        menu[index][4] = +prompt("Nhập điểm hoá", menu[index][4])
+        menu[index][5] = (( menu[index][2] + menu[index][3] + menu[index][4])/3).toFixed(2);
+        showMenu();
+    }
+</script>
+</body>
+</html>
